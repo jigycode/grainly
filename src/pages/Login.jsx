@@ -1,18 +1,22 @@
 import { useFormik } from "formik";
+import { loginSchema } from "../schemas";
 
 const initialValues = {
-  name: "",
   email: "",
   password: "",
 };
 
 const Login = () => {
-  const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues: initialValues,
-    onSubmit: (values) => {
-      console.log("Form values:", values);
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: loginSchema,
+      onSubmit: (values) => {
+        console.log("Form values:", values);
+      },
+    });
+
+  console.log("Errors:", errors);
 
   return (
     <>
@@ -56,10 +60,12 @@ const Login = () => {
                       value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      required
                       autoComplete="email"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
+                    {touched.email ? (
+                      <p className="error-text">{errors.email}</p>
+                    ) : null}
                   </div>
                 </div>
 
@@ -78,10 +84,12 @@ const Login = () => {
                       value={values.password}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      required
                       autoComplete="current-password"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
+                    {touched.password ? (
+                      <p className="error-text">{errors.password}</p>
+                    ) : null}
                   </div>
                 </div>
 
