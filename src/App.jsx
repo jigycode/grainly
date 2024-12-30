@@ -1,4 +1,3 @@
-import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 // import Navbar from "./assets/component/Home";
 import Login from "./pages/Login";
